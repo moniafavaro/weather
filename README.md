@@ -57,3 +57,5 @@ To run the application:
 
 
 > Note: The availability and functionality of the ChatGPT API may have limitations or usage restrictions depending on your access level and OpenAI's policies.
+
+> Note II: This project was build with ChatGPT.
