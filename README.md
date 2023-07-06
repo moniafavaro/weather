@@ -38,8 +38,8 @@ The application is built using Python, Flask framework, HTML, and CSS. It provid
 ### Running the Application
 
 1. Obtain an API key from the OpenWeatherMap API by signing up on their website.
-2. Replace `'YOUR_API_KEY'` in the `get_weather` function in `app.py` with your actual API key.
-3. (Optional) Obtain an API key from the OpenAI API if you wish to use the ChatGPT city information feature. Replace `'YOUR_API_KEY'` in the `get_city_info` function in `app.py` with your actual API key.
+2. Replace `'OPENWEATHER_API_KEY'` in the `get_weather` function in `app.py` with your actual API key.
+3. (Optional) Obtain an API key from the OpenAI API if you wish to use the ChatGPT city information feature. Replace `'OPENAI_API_KEY'` in the `get_city_info` function in `app.py` with your actual API key.
 4. Save the changes in `app.py`.
 
 To run the application:
