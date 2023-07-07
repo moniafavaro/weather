@@ -12,10 +12,15 @@ open_weather_key = os.environ.get('OPENWEATHER_API_KEY')
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        city = request.form['city']
-        weather = get_weather(city)
-        city_info = get_city_info(city)
-        return render_template('index.html', weather=weather, city_info=city_info)
+        try:
+            city = request.form['city']
+            city = city.strip()
+            weather = get_weather(city)
+            city_info = get_city_info(city)
+            return render_template('index.html', weather=weather, city_info=city_info)
+        except Exception as e:
+            error_message = f'Error retrieving data: {str(e)}'
+            return render_template('index.html', error_message=error_message)
     return render_template('index.html')
 
 def get_weather(city):
@@ -42,11 +47,17 @@ def get_city_info(city):
                         {"role": "system", "content": "You are a helpful assistant that only generates responses with less than 2000 characters."},
                         {"role": "user", "content": f"What can you tell me about {city}?"}
             ])
-        return response["choices"][0]["message"]["content"]
-
-    except Exception as e:
-        print(f'Error: {str(e)}')
-        return None
+        city_info = response['choices'][0]['message']['content']
+        if "I'm sorry, but I couldn't find any information" in city_info:
+            raise ValueError('City not found. Try again!')
+        return city_info
+    except openai.error.OpenAIError as e:
+        error_message = e.response['error']['message']
+        if 'City not found' in error_message:
+            raise ValueError('City not found. Try again!!')
+        else:
+            print(f'Error: {error_message}')
+            return None
 
 if __name__ == '__main__':
     app.run(debug=True)

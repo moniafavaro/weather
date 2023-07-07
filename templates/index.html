@@ -19,6 +19,11 @@
                 </div>
             </div>
         </form>
+
+        {% if error_message %}
+            <div class="alert alert-danger">{{ error_message }}</div>
+        {% endif %}
+
         {% if weather %}
             <div class="weather-info">
                 <h2 class="mb-3 text-center">{{ weather['city'] }}</h2>
